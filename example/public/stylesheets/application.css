@@ -1,0 +1,12 @@
+.jumbotron {
+  margin: 60px;
+}
+
+.jumbotron h1 {
+  text-align: center;
+}
+
+.counter {
+  height: 200px;
+  background-color: red;
+}
