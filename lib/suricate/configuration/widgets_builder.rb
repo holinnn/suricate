@@ -26,7 +26,6 @@ module Suricate
       default_template = type.to_s.sub(/Widget$/, '').downcase
       template_names = [options[:template] || id.to_s, default_template]
       template_names.each do |name|
-        byebug
         template = @template_repository.find_widget(name) rescue TemplateRepository::TemplateNotFound
         if template
           options[:template] = template.render
