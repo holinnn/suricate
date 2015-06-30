@@ -18,6 +18,10 @@ module Suricate
   autoload :Widget,                'suricate/widgets/widget'
   autoload :CounterWidget,         'suricate/widgets/counter_widget'
 
+
+  # Utils
+  autoload :DelegationCallback,    'suricate/delegation_callback'
+
   class << self
     def build
       builder = ConfigurationBuilder.new

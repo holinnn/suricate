@@ -8,8 +8,7 @@ configuration = Suricate.build do |config|
   config.default_page        = 'index'
 
   config.widgets do |widgets|
-    widgets.counter :errors, nil, name: 'Errors',
-                                  template: 'counter'
+    widgets.counter :errors, nil, name: 'Errors'
   end
 end
 

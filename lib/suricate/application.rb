@@ -17,9 +17,24 @@ module Suricate
     end
 
     configure do
-      set :public_folder, Proc.new { configuration.public_directory }
-      set :views,         Proc.new { configuration.templates_directory }
+      set :public_folder,   Proc.new { configuration.public_directory }
+      set :views,           Proc.new { configuration.templates_directory }
+      set :show_exceptions, :after_handler
     end
+
+
+
+
+    #
+    # Errors
+    #
+
+    error WidgetRepository::WidgetNotFound do
+      send_api_error(404, env['sinatra.error'].message)
+    end
+
+
+
 
     #
     # API
@@ -36,8 +51,16 @@ module Suricate
 
     # Get widget's data
     get('/api/widgets/:id') do
-
+      widget = widget_repository.find(params['id'])
+      widget.process do |on|
+        on.json do |json|
+          send_api_success(json)
+        end
+      end
     end
+
+
+
 
     #
     # Pages
@@ -55,20 +78,38 @@ module Suricate
       render_template(default)
     end
 
+
+
+
     private
+    def output_driver
+      SinatraDriver.new(self)
+    end
+
     def render_template(template)
       body(template.render)
     end
 
     def send_api_success(data)
+      send_api_response(200, data)
+    end
+
+    def send_api_error(status, message)
+      data = { error: { message: message } }
+      send_api_response(status, data)
+    end
+
+    def send_api_response(status, data)
       response = {
-        status: 200,
+        status: status,
         data: data
       }
       json = JSON.generate(response)
 
+      status(status)
       content_type(:json)
       body(json)
     end
   end
+
 end

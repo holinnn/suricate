@@ -28,4 +28,10 @@ RSpec.describe Suricate::Widget do
       expect(subject.type).to eq('Widget')
     end
   end
+
+  describe '::type' do
+    it 'returns the widget type' do
+      expect(subject.class.type).to eq('Widget')
+    end
+  end
 end

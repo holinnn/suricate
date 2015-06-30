@@ -17,5 +17,9 @@ module Suricate
     def type
       self.class.type
     end
+
+    def process(request)
+      raise NotImplementedError
+    end
   end
 end

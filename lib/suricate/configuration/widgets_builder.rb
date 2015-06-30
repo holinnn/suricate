@@ -23,14 +23,19 @@ module Suricate
     end
 
     def build_options(id, type, options)
+      options[:template] = find_widget_template(id, type, options[:template])
+    end
+
+    def find_widget_template(id, type, template)
       default_template = type.to_s.sub(/Widget$/, '').downcase
-      template_names = [options[:template] || id.to_s, default_template]
+      template_names = [template || id.to_s, default_template]
       template_names.each do |name|
-        template = @template_repository.find_widget(name) rescue TemplateRepository::TemplateNotFound
-        if template
-          options[:template] = template.render
-          break
-        end
+        template = begin
+                     @template_repository.find_widget(name)
+                   rescue TemplateRepository::TemplateNotFound
+                     nil
+                   end
+        return template.render if template
       end
     end
   end
