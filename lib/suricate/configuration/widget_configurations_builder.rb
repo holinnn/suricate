@@ -1,5 +1,6 @@
 module Suricate
   class WidgetConfigurationsBuilder
+    class IDAlreadyUsedError < StandardError; end
     attr_reader :configurations
 
     def initialize(template_repository)
@@ -12,14 +13,19 @@ module Suricate
     end
 
     def register(id, klass, collector, options = {})
-      configuration   = build_configuration(id, klass, collector, options)
-      @configurations << configuration
+      id = id.to_sym
+      if find_with_id(id)
+        raise IDAlreadyUsedError.new("id \"#{id}\" already taken")
+      else
+        configuration   = build_configuration(id, klass, collector, options)
+        @configurations << configuration
+      end
     end
 
     private
     def build_configuration(id, klass, collector, options)
       build_options(id, klass.type, options)
-      WidgetConfiguration.new(id, klass, collector, options)
+      WidgetConfiguration.new(id.to_sym, klass, collector, options)
     end
 
     def build_options(id, type, options)
@@ -42,6 +48,10 @@ module Suricate
                    end
         return template.render if template
       end
+    end
+
+    def find_with_id(id)
+      @configurations.find { |conf| conf.id == id }
     end
   end
 end

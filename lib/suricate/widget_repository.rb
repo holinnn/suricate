@@ -8,7 +8,7 @@ module Suricate
     end
 
     def instantiate(id, context)
-      if configuration = find_configuration_with_id(id)
+      if configuration = find_configuration_with_id(id.to_sym)
         configuration.instantiate(context)
       else
         raise WidgetNotFound.new("widget with id=#{id} not found")

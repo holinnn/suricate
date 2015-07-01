@@ -9,6 +9,15 @@ RSpec.describe Suricate::WidgetConfigurationsBuilder do
   class GraphWidget < Suricate::Widget; end
 
   describe '#register' do
+    it 'raises an error if widget with same id already registered' do
+      expect(template_repository).to receive(:find_widget).with('counter').and_return(template)
+      subject.register(:fake, GraphWidget, collector, template: 'counter', name: 'Errors')
+
+      expect {
+        subject.register(:fake, GraphWidget, collector, template: 'counter', name: 'Errors')
+      }.to raise_error(Suricate::WidgetConfigurationsBuilder::IDAlreadyUsedError)
+    end
+
     it 'adds widget with wanted template' do
       expect(template_repository).to receive(:find_widget).with('counter').and_return(template)
       subject.register(:fake, GraphWidget, collector, template: 'counter', name: 'Errors')

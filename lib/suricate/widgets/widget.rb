@@ -19,16 +19,8 @@ module Suricate
       self.class.type
     end
 
-    def process
-      yield callback
-      execute
+    def execute
+      raise NotImplementedError.new("Suricate::Widget is a template class, #execute must be implamented in subclass")
     end
-
-    private
-    def output_callback
-      @output_callback ||= DelegationCallback.new(:json)
-    end
-
-    def execute; raise NotImplementedError; end
   end
 end

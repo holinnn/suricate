@@ -2,6 +2,10 @@ source 'https://rubygems.org'
 
 gem 'sinatra', require: false
 
+group :development do
+  gem 'byebug'
+end
+
 group :test do
   gem 'rake'
   gem 'rspec'

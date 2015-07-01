@@ -30,7 +30,7 @@ module Suricate
     #
 
     error WidgetRepository::WidgetNotFound do
-      send_api_error(404, env['sinatra.error'].message)
+      output.api_error(404, env['sinatra.error'].message)
     end
 
 
@@ -43,18 +43,13 @@ module Suricate
     # Get widgets' configuration
     get('/api/widgets') do
       configurations = widget_repository.configurations.map(&:to_h)
-      send_api_success(widgets: configurations)
+      output.api_success(widgets: configurations)
     end
 
     # Get widget's data
     get('/api/widgets/:id') do
       widget = widget_repository.instantiate(params['id'], context)
-      context = RequestContext.new(request, session)
-      widget.process(context) do |on|
-        on.json do |json|
-          send_api_success(json)
-        end
-      end
+      widget.execute
     end
 
 
@@ -66,14 +61,12 @@ module Suricate
 
     # Pages
     get('/:page') do
-      template = template_repository.find_page(params['page'])
-      render_template(template)
+      render_page(params['page'])
     end
 
     # Default page
     get('/') do
-      default = template_repository.find_page(@configuration.default_page)
-      render_template(default)
+      render_page(@configuration.default_page)
     end
 
 
@@ -81,32 +74,16 @@ module Suricate
 
     private
     def context
-
+      RequestContext.new(request: request, session: session, output: output)
     end
 
-    def render_template(template)
-      body(template.render)
+    def output
+      @output ||= SinatraOutputDriver.new(self)
     end
 
-    def send_api_success(data)
-      send_api_response(200, data)
-    end
-
-    def send_api_error(status, message)
-      data = { error: { message: message } }
-      send_api_response(status, data)
-    end
-
-    def send_api_response(status, data)
-      response = {
-        status: status,
-        data: data
-      }
-      json = JSON.generate(response)
-
-      status(status)
-      content_type(:json)
-      body(json)
+    def render_page(page)
+      template = template_repository.find_page(page)
+      output.render(template.render)
     end
   end
 
