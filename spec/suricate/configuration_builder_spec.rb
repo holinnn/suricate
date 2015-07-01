@@ -12,7 +12,7 @@ RSpec.describe Suricate::ConfigurationBuilder do
     it 'yields a widget builder' do
       builder = nil
       subject.widgets { |widgets| builder = widgets }
-      expect(builder).to be_a(Suricate::WidgetsBuilder)
+      expect(builder).to be_a(Suricate::WidgetConfigurationsBuilder)
     end
   end
 

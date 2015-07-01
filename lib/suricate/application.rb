@@ -42,17 +42,15 @@ module Suricate
 
     # Get widgets' configuration
     get('/api/widgets') do
-      configurations = widget_repository.all.map do |widget|
-        serializer = WidgetHashSerializer.new(widget)
-        serializer.encode
-      end
+      configurations = widget_repository.configurations.map(&:to_h)
       send_api_success(widgets: configurations)
     end
 
     # Get widget's data
     get('/api/widgets/:id') do
-      widget = widget_repository.find(params['id'])
-      widget.process do |on|
+      widget = widget_repository.instantiate(params['id'], context)
+      context = RequestContext.new(request, session)
+      widget.process(context) do |on|
         on.json do |json|
           send_api_success(json)
         end
@@ -82,8 +80,8 @@ module Suricate
 
 
     private
-    def output_driver
-      SinatraDriver.new(self)
+    def context
+
     end
 
     def render_template(template)

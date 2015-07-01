@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-RSpec.describe Suricate::WidgetsBuilder do
-  subject { Suricate::WidgetsBuilder.new(template_repository) }
+RSpec.describe Suricate::WidgetConfigurationsBuilder do
+  subject { Suricate::WidgetConfigurationsBuilder.new(template_repository) }
   let(:template_repository) { double('template_repository') }
   let(:collector) { double('collector') }
   let(:template) { double('template', render: '') }
@@ -11,11 +11,14 @@ RSpec.describe Suricate::WidgetsBuilder do
   describe '#register' do
     it 'adds widget with wanted template' do
       expect(template_repository).to receive(:find_widget).with('counter').and_return(template)
-      subject.register(:fake, GraphWidget, collector, template: 'counter')
+      subject.register(:fake, GraphWidget, collector, template: 'counter', name: 'Errors')
 
-      widget = subject.widgets.first
-      expect(widget.id).to eq(:fake)
-      expect(widget).to be_a(GraphWidget)
+      configuration = subject.configurations.first
+      expect(configuration.id).to eq(:fake)
+      expect(configuration.klass).to eq(GraphWidget)
+      expect(configuration.collector).to eq(collector)
+      expect(configuration.options).to eq(template: '', name: 'Errors')
+      expect(configuration).to be_a(Suricate::WidgetConfiguration)
     end
 
     it 'adds widget with template based on #id' do

@@ -1,11 +1,12 @@
 module Suricate
   class Widget
-    attr_reader :id, :configuration, :collector
+    attr_reader :id, :options, :collector
 
-    def initialize(id, collector, configuration)
-      @id            = id
-      @collector     = collector
-      @configuration = configuration
+    def initialize(options = {})
+      @id        = options[:id]
+      @context   = options[:context]
+      @options   = options[:options]
+      @collector = options[:collector]
     end
 
     class << self
@@ -18,8 +19,16 @@ module Suricate
       self.class.type
     end
 
-    def process(request)
-      raise NotImplementedError
+    def process
+      yield callback
+      execute
     end
+
+    private
+    def output_callback
+      @output_callback ||= DelegationCallback.new(:json)
+    end
+
+    def execute; raise NotImplementedError; end
   end
 end

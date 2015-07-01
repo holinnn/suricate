@@ -1,10 +1,10 @@
 module Suricate
-  class WidgetsBuilder
-    attr_reader :widgets
+  class WidgetConfigurationsBuilder
+    attr_reader :configurations
 
     def initialize(template_repository)
       @template_repository = template_repository
-      @widgets             = []
+      @configurations      = []
     end
 
     def counter(id, collector, options = {})
@@ -12,18 +12,23 @@ module Suricate
     end
 
     def register(id, klass, collector, options = {})
-      configuration = build_configuration(id, klass.type, options)
-      @widgets << klass.new(id, collector, configuration)
+      configuration   = build_configuration(id, klass, collector, options)
+      @configurations << configuration
     end
 
     private
-    def build_configuration(id, type, options)
-      build_options(id, type, options)
-      WidgetConfiguration.new(options)
+    def build_configuration(id, klass, collector, options)
+      build_options(id, klass.type, options)
+      WidgetConfiguration.new(id, klass, collector, options)
     end
 
     def build_options(id, type, options)
       options[:template] = find_widget_template(id, type, options[:template])
+      if options[:templates]
+        options[:templates].map! do |name|
+          @template_repository.find_widget(name)
+        end
+      end
     end
 
     def find_widget_template(id, type, template)

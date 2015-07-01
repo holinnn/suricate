@@ -1,26 +1,31 @@
 require 'spec_helper'
 
 RSpec.describe Suricate::WidgetRepository do
-  subject { Suricate::WidgetRepository.new(widgets) }
-  let(:widgets) { [widget] }
-  let(:widget) { double('widget', id: :errors) }
+  subject { Suricate::WidgetRepository.new(configurations) }
+  let(:configurations) {[configuration]}
+  let(:configuration) { Suricate::WidgetConfiguration.new(:errors, FakeWidget, collector, options) }
+  let(:options) { { name: 'Errors count' } }
+  let(:collector) { double('collector') }
+  let(:context) { double('context') }
 
-  describe '#find' do
-    it 'returns the widget' do
-      widget_found = subject.find(:errors)
-      expect(widget_found).to eq(widget)
+
+  describe '#instantiate' do
+    it 'returns a widget' do
+      widget = subject.instantiate(:errors, context)
+      expect(widget.id).to eq(:errors)
+      expect(widget).to be_a(FakeWidget)
     end
 
     it 'raises an exception if not found' do
       expect {
-        subject.find(:fake_widget)
+        subject.instantiate(:fake_widget, context)
       }.to raise_error(Suricate::WidgetRepository::WidgetNotFound)
     end
   end
 
-  describe '#all' do
+  describe '#configurations' do
     it 'returns all widgets' do
-      expect(subject.all).to eq(widgets)
+      expect(subject.configurations).to eq(configurations)
     end
   end
 

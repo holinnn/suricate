@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 RSpec.describe Suricate::Widget do
-  subject { Suricate::Widget.new(:errors, collector, configuration) }
+  subject { Suricate::Widget.new(id: :errors, collector: collector, options: options) }
   let(:collector) { double('collector') }
-  let(:configuration) { double('configuration') }
+  let(:options) { {} }
 
   describe '#id' do
     it 'returns the id' do
@@ -17,9 +17,9 @@ RSpec.describe Suricate::Widget do
     end
   end
 
-  describe '#configuration' do
-    it 'returns the configuration' do
-      expect(subject.configuration).to eq(configuration)
+  describe '#options' do
+    it 'returns the options' do
+      expect(subject.options).to eq(options)
     end
   end
 
@@ -33,5 +33,9 @@ RSpec.describe Suricate::Widget do
     it 'returns the widget type' do
       expect(subject.class.type).to eq('Widget')
     end
+  end
+
+  describe '#process' do
+    
   end
 end

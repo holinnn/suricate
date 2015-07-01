@@ -10,7 +10,7 @@ module Suricate
     end
 
     def widgets
-      yield widgets_builder
+      yield widget_configurations_builder
     end
 
     private
@@ -19,11 +19,11 @@ module Suricate
     end
 
     def widget_repository
-      WidgetRepository.new(widgets_builder.widgets)
+      WidgetRepository.new(widget_configurations_builder.configurations)
     end
 
-    def widgets_builder
-      @widgets_builder ||= WidgetsBuilder.new(template_repository)
+    def widget_configurations_builder
+      @widgets_builder ||= WidgetConfigurationsBuilder.new(template_repository)
     end
   end
 end
