@@ -34,8 +34,4 @@ RSpec.describe Suricate::Widget do
       expect(subject.class.type).to eq('Widget')
     end
   end
-
-  describe '#process' do
-    
-  end
 end

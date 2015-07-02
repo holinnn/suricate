@@ -21,6 +21,9 @@ module Suricate
   autoload :Widget,                       'suricate/widgets/widget'
   autoload :CounterWidget,                'suricate/widgets/counter_widget'
 
+  # Responses
+  autoload :CounterWidgetResponse,        'suricate/widgets/responses/counter_widget_response'
+
 
   # Utils
   autoload :DelegationCallback,    'suricate/delegation_callback'

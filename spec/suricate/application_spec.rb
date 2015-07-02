@@ -58,7 +58,6 @@ RSpec.describe Suricate::Application do
 
   describe '/api/widgets/:id' do
     it 'passes the request to the widget' do
-      pending
       get('/api/widgets/errors')
 
       json = JSON.parse(last_response.body)

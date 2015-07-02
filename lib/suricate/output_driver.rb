@@ -18,7 +18,7 @@ module Suricate
         status: status,
         data: data
       }
-      json = JSON.generate(response)
+      json = JSON.fast_generate(response)
 
       status(status)
       content_type(:json)

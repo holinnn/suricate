@@ -1,0 +1,51 @@
+/*
+ * Widget
+ */
+
+.widget {
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  height: 100%;
+  position: relative;
+}
+
+.widget .body {
+  padding: 10px;
+}
+
+.widget .name {
+  position: relative;
+  text-transform: uppercase;
+  text-align: center;
+  color: #5C5C5C;
+  padding-bottom: 15px;
+}
+
+.widget .bottom-bar {
+  position: relative;
+  background-color: #f3f3f3;
+  border-top: 1px solid #d9d9d9;
+  padding: 10px;
+}
+
+.widget .last-update-at {
+  font-size: 11px;
+  font-weight: 200;
+  color: #8c8c8c;
+}
+
+.widget .last-update-at .time {
+  font-weight: 500;
+}
+
+
+/*
+ * CounterWidget
+ */
+
+.widget.counter-widget .value {
+  text-align: center;
+  padding: 20px 20px 0px 20px;
+  font-size: 40px;
+  color: #666666;
+}

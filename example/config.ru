@@ -1,5 +1,8 @@
 require 'suricate'
 
+require_relative 'collectors/static_counter_collector'
+require_relative 'collectors/random_counter_collector'
+
 current_directory = File.dirname(__FILE__)
 
 configuration = Suricate.build do |config|
@@ -8,10 +11,13 @@ configuration = Suricate.build do |config|
   config.default_page        = 'index'
 
   config.widgets do |widgets|
-    widgets.counter :errors, nil, name: 'Errors'
+    widgets.counter :errors, RandomCounterCollector.new, placeholders: { name: 'Errors' },
+                                                             interval: 50
   end
 end
 
 application = Suricate::Application.new(configuration)
+
+use Rack::Runtime
 
 run application

@@ -1,8 +1,12 @@
-<div class="counter-widget">
-  <h1 data-widget-binding="name"></h1>
-  <div data-widget-binding="value"></div>
-  <div>
-    <span data-widget-binding="last-update-at"></span>
-    <span data-widget-binding="next-update-in"></span>
+<div class="widget counter-widget">
+  <div class="body">
+    <div class="value" data-widget-binding="value"></div>
+    <div class="name" data-widget-binding="name"></div>
+  </div>
+  <div class="bottom-bar">
+    <div class="last-update-at">
+      Last update :
+      <span data-widget-binding="last-update-at" class="time"></span>
+    </div>
   </div>
 </div>

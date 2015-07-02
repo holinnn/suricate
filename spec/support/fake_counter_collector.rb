@@ -3,7 +3,7 @@ class FakeCounterCollector
     @value = value
   end
 
-  def count
-    @value
+  def populate(response, params)
+    response.value(@value)
   end
 end
