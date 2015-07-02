@@ -1,5 +1,6 @@
 module Suricate
   class WidgetConfigurationsBuilder
+    using Refinements::String
     class IDAlreadyUsedError < StandardError; end
     attr_reader :configurations
 
@@ -10,6 +11,10 @@ module Suricate
 
     def counter(id, collector, options = {})
       register(id, CounterWidget, collector, options)
+    end
+
+    def line_chart(id, collector, options = {})
+      register(id, LineChartWidget, collector, options)
     end
 
     def register(id, klass, collector, options = {})
@@ -37,17 +42,19 @@ module Suricate
       end
     end
 
-    def find_widget_template(id, type, template)
-      default_template = type.to_s.sub(/Widget$/, '').downcase
-      template_names = [template || id.to_s, default_template]
+    def find_widget_template(id, type, wanted_template)
+      template         = nil
+      default_template = type.underscore.sub(/_widget$/, '')
+      template_names   = [wanted_template || id.to_s, default_template]
+
       template_names.each do |name|
-        template = begin
-                     @template_repository.find_widget(name)
-                   rescue TemplateRepository::TemplateNotFound
-                     nil
-                   end
-        return template.render if template
+        begin
+          template = @template_repository.find_widget(name) and break
+        rescue TemplateRepository::TemplateNotFound
+        end
       end
+
+      template.render if template
     end
 
     def find_with_id(id)

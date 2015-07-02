@@ -20,9 +20,21 @@ module Suricate
   # Widgets
   autoload :Widget,                       'suricate/widgets/widget'
   autoload :CounterWidget,                'suricate/widgets/counter_widget'
+  autoload :LineChartWidget,              'suricate/widgets/line_chart_widget'
 
   # Responses
   autoload :CounterWidgetResponse,        'suricate/widgets/responses/counter_widget_response'
+  autoload :ChartWidgetResponse,          'suricate/widgets/responses/chart_widget_response'
+
+  # Charts
+  autoload :Chart,                        'suricate/charts/chart'
+  autoload :ChartSerie,                   'suricate/charts/chart_serie'
+  autoload :ChartBuilder,                 'suricate/charts/chart_builder'
+  autoload :ChartSerieBuilder,            'suricate/charts/chart_serie_builder'
+
+  module Refinements
+    autoload :String,                     'suricate/refinements/string'
+  end
 
 
   # Utils

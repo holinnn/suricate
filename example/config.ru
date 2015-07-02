@@ -2,6 +2,7 @@ require 'suricate'
 
 require_relative 'collectors/static_counter_collector'
 require_relative 'collectors/random_counter_collector'
+require_relative 'collectors/random_line_chart_collector'
 
 current_directory = File.dirname(__FILE__)
 
@@ -12,7 +13,9 @@ configuration = Suricate.build do |config|
 
   config.widgets do |widgets|
     widgets.counter :errors, RandomCounterCollector.new, placeholders: { name: 'Errors' },
-                                                             interval: 50
+                                                         interval: 400
+    widgets.line_chart :earnings, RandomLineChartCollector.new, placeholders: { name: 'earnings' },
+                                                                 interval: 1000
   end
 end
 
