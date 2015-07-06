@@ -64,6 +64,7 @@ RSpec.describe Suricate::Application do
       expect(json).to eq({
         'status' => 200,
         'data' => {
+          'status' => 'ok',
           'value' => 20
         }
       })

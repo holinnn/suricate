@@ -13,6 +13,7 @@ RSpec.describe Suricate::CounterWidget do
       json = JSON.generate({
         'status' => 200,
         'data' => {
+          'status' => 'ok',
           'value' => 500
         }
       })

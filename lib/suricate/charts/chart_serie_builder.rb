@@ -8,6 +8,10 @@ module Suricate
       @name = name
     end
 
+    def color(color)
+      @color = color
+    end
+
     # Add multiple values
     def values(values)
       @values.concat(values)
@@ -19,7 +23,7 @@ module Suricate
     end
 
     def serie
-      ChartSerie.new(@name, @values)
+      ChartSerie.new(@name, @values, @color)
     end
   end
 end

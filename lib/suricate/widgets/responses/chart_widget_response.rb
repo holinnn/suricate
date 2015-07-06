@@ -1,9 +1,10 @@
 require 'delegate'
 
 module Suricate
-  class ChartWidgetResponse
+  class ChartWidgetResponse < WidgetResponse
     def initialize
       @builder = ChartBuilder.new
+      super
     end
 
     def chart
@@ -11,7 +12,9 @@ module Suricate
     end
 
     def to_h
-      { chart: @builder.chart.to_h }
+      super.tap do |hash|
+        hash.merge!(chart: @builder.chart.to_h)
+      end
     end
   end
 end

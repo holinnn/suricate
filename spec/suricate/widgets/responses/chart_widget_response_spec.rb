@@ -17,14 +17,17 @@ RSpec.describe Suricate::ChartWidgetResponse do
         chart.serie do |serie|
           serie.name 'earnings'
           serie.value 12
+          serie.color '#ffffff'
         end
       end
       expect(subject.to_h).to eq({
+        status: 'ok',
         chart: {
           labels: %w(jan feb),
           series: [{
             name: 'earnings',
-            values: [12]
+            values: [12],
+            color: '#ffffff'
           }]
         }
       })

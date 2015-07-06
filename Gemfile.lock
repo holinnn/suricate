@@ -1,3 +1,9 @@
+PATH
+  remote: .
+  specs:
+    suricate (0.0.3)
+      sinatra (~> 1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -43,10 +49,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
-  codeclimate-test-reporter
-  rack-test
-  rake
-  rspec
-  simplecov
-  sinatra
+  bundler (~> 1.7)
+  byebug (~> 5.0)
+  codeclimate-test-reporter (~> 0.4.7)
+  rack-test (~> 0.6.3)
+  rake (~> 10.4)
+  rspec (~> 3.3)
+  simplecov (~> 0.10.0)
+  suricate!

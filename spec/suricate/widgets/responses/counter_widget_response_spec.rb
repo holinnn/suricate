@@ -12,6 +12,7 @@ RSpec.describe Suricate::CounterWidgetResponse do
       it 'returns a Hash' do
         subject.value(12)
         expect(subject.to_h).to eq({
+          status: 'ok',
           value: 12
         })
       end

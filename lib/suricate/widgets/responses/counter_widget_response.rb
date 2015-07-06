@@ -1,9 +1,10 @@
 module Suricate
-  class CounterWidgetResponse
+  class CounterWidgetResponse < WidgetResponse
     class NotAnNumberError < StandardError; end
 
     def initialize
       @value = nil
+      super
     end
 
     def value(value)
@@ -12,7 +13,9 @@ module Suricate
     end
 
     def to_h
-      { value: @value }
+      super.tap do |hash|
+        hash.merge!(value: @value)
+      end
     end
   end
 end

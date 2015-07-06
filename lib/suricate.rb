@@ -23,6 +23,7 @@ module Suricate
   autoload :LineChartWidget,              'suricate/widgets/line_chart_widget'
 
   # Responses
+  autoload :WidgetResponse,               'suricate/widgets/responses/widget_response'
   autoload :CounterWidgetResponse,        'suricate/widgets/responses/counter_widget_response'
   autoload :ChartWidgetResponse,          'suricate/widgets/responses/chart_widget_response'
 
