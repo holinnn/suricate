@@ -33,10 +33,12 @@ RSpec.describe Suricate::ChartSerieBuilder do
     it 'returns a ChartSerie' do
       subject.name('earnings')
       subject.values([1, 2, 3])
+      subject.color('#ff00ff')
       serie = subject.serie
       expect(serie).to be_a(Suricate::ChartSerie)
       expect(serie.name).to eq('earnings')
       expect(serie.values).to eq([1, 2, 3])
+      expect(serie.color).to eq('#ff00ff')
     end
   end
 end
