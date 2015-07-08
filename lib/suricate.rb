@@ -21,6 +21,7 @@ module Suricate
   autoload :Widget,                       'suricate/widgets/widget'
   autoload :CounterWidget,                'suricate/widgets/counter_widget'
   autoload :LineChartWidget,              'suricate/widgets/line_chart_widget'
+  autoload :StatusWidget,                 'suricate/widgets/status_widget'
 
   # Responses
   autoload :WidgetResponse,               'suricate/widgets/responses/widget_response'

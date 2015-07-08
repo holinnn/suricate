@@ -19,7 +19,7 @@
   text-transform: uppercase;
   text-align: center;
   color: #5C5C5C;
-  padding-bottom: 15px;
+  padding-bottom: 5px;
 }
 
 .widget .bottom-bar {
@@ -67,7 +67,7 @@
 }
 
 .line-chart-widget .name {
-  padding-top: 20px;
+  padding-top: 10px;
 }
 
 .line-chart-widget .legend {
@@ -94,4 +94,38 @@
   display: inline-block;
   position: relative;
   margin-right: 5px;
+}
+
+/*
+ * StatusWidget
+ */
+
+.status-widget .status {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60px;
+  border-radius: 50%;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.status-widget.danger .body {
+  background-color: white;
+}
+
+.status-widget.warning .body {
+  background-color: white;
+}
+
+.status-widget.ok .status {
+  background-color: #32986C;
+}
+
+.status-widget.danger .status {
+  background-color: #F59F97;
+}
+
+.status-widget.warning .status {
+  background-color: #f5ce97;
 }

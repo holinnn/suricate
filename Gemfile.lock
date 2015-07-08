@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    suricate (0.0.3)
+    suricate (0.0.4)
       sinatra (~> 1.4)
 
 GEM
@@ -57,3 +57,6 @@ DEPENDENCIES
   rspec (~> 3.3)
   simplecov (~> 0.10.0)
   suricate!
+
+BUNDLED WITH
+   1.10.6

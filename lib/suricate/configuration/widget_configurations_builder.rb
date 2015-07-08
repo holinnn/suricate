@@ -17,6 +17,10 @@ module Suricate
       register(id, LineChartWidget, collector, options)
     end
 
+    def status(id, collector, options = {})
+      register(id, StatusWidget, collector, options)
+    end
+
     def register(id, klass, collector, options = {})
       id = id.to_sym
       if find_with_id(id)
